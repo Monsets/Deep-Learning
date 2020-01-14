@@ -6,6 +6,7 @@ from loss import depth_loss_function
 from utils import predict, save_images, load_test_data
 from model import create_model
 from model_resnet import create_model_resnet
+from model_mobilenet import create_model_mobilenet
 from data import get_nyu_train_test_data, get_unreal_train_test_data
 from callbacks import get_nyu_callbacks
 
@@ -28,6 +29,7 @@ parser.add_argument('--checkpoint', type=str, default='', help='Start training f
 parser.add_argument('--full', dest='full', action='store_true', help='Full training with metrics, checkpoints, and image samples.')
 parser.add_argument('--dnetVersion', type = str, default= 'medium' , help='Choice of densenet from small, medium or large.')
 parser.add_argument('--resnet50', dest='resnet50', action='store_true', help='Train a Resnet 50 model.')
+parser.add_argument('--mobilenet', dest='mobilenet', action='store_true', help='Train a MobileNetV2 model.')
 
 args = parser.parse_args()
 
@@ -41,6 +43,8 @@ else:
 # Create the model
 if args.resnet50:  # if want a resnet model
     model = create_model_resnet(existing=args.checkpoint)
+elif args.mobilenet:
+    model = create_model_mobilenet(existing = args.checkpoint)
 else: # choose densetnet model
     if args.dnetVersion == 'small':
         model = create_model(existing=args.checkpoint, is121 = True)
