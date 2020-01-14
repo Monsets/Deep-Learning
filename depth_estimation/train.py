@@ -49,7 +49,7 @@ else: # choose densetnet model
     if args.dnetVersion == 'small':
         model = create_model(existing=args.checkpoint, is121 = True)
     if args.dnetVersion == 'medium':
-        model = create_model( existing=args.checkpoint )
+        model = create_model( eConv1_reluxisting=args.checkpoint )
     if args.dnetVersion == 'large':
         model = create_model( existing=args.checkpoint, is_twohundred=True )
 
@@ -65,7 +65,7 @@ pathlib.Path(runPath).mkdir(parents=True, exist_ok=True)
 print('Output: ' + runPath)
 
  # (optional steps)
-if True:
+if False:
     # Keep a copy of this training script and calling arguments
     with open(__file__, 'r') as training_script: training_script_content = training_script.read()
     training_script_content = '#' + str(sys.argv) + '\n' + training_script_content

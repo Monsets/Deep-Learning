@@ -47,9 +47,9 @@ def create_model_mobilenet(existing='', is_halffeatures=True):
         decoder = Conv2D(filters=decode_filters, kernel_size=1, padding='same', input_shape=base_model_output_shape,
                          name='conv2')(base_model.layers[-3].output)
 
-        decoder = upproject(decoder, int(decode_filters / 2), 'up1', concat_with='block_11_add') #30, 40, 256
-        decoder = upproject(decoder, int(decode_filters / 4), 'up2', concat_with='block_7_add') # 60, 80, 128
-        decoder = upproject(decoder, int(decode_filters / 8), 'up3', concat_with='block_4_add') #120,  160, 64
+        decoder = upproject(decoder, int(decode_filters / 2), 'up1', concat_with='block_11_add') #60, 80, 256
+        decoder = upproject(decoder, int(decode_filters / 4), 'up2', concat_with='block_4_add') # 120, 160, 128
+        decoder = upproject(decoder, int(decode_filters / 8), 'up3', concat_with='block_1_project') #240,  320, 64
         decoder = upproject(decoder, int(decode_filters / 16), 'up4', concat_with='Conv1_relu')  #240, 320, 64
         if False: decoder = upproject(decoder, int(decode_filters / 32), 'up5', concat_with='input_1')
 
